@@ -26,7 +26,7 @@ export function Products() {
             transition={{ duration: 0.5 }}
             className="bg-gradient-to-br from-section to-white border border-border rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow flex flex-col"
           >
-            <div className="w-16 h-16 rounded-2xl bg-white border border-border flex items-center justify-center mb-6 overflow-hidden relative shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 border border-border flex items-center justify-center mb-6 overflow-hidden relative shadow-sm">
               <Image src="/images/codeutils-logo.png" alt="CodeUtils Logo" fill className="object-contain p-2" />
             </div>
             <h3 className="text-2xl font-bold text-text-primary mb-4">CodeUtils</h3>
@@ -74,3 +74,7 @@ export function Products() {
     </section>
   );
 }
+
+
+
+

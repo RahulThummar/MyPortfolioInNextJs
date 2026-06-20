@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   description: "Experienced Frontend Engineer specializing in React.js, Next.js, Vue.js, and TypeScript. Building high-performance, scalable web applications, real-time collaboration platforms, and AI-assisted developer tools in Surat, India.",
   keywords: [
-    "Rahul Thummar", "React.js Developer", "Next.js Developer", "Frontend Engineer", 
-    "Web Developer Surat", "Vue.js Expert", "TypeScript Developer", "JavaScript", 
-    "WebRTC", "Socket.io", "Fabric.js", "Tailwind CSS", "Framer Motion", "React Developer India", 
+    "Rahul Thummar", "React.js Developer", "Next.js Developer", "Frontend Engineer",
+    "Web Developer Surat", "Vue.js Expert", "TypeScript Developer", "JavaScript",
+    "WebRTC", "Socket.io", "Fabric.js", "Tailwind CSS", "Framer Motion", "React Developer India",
     "MERN Stack", "Frontend Architecture", "Real-time Applications", "CodeUtils",
     "AutoIncrementLog", "JoinMyClass", "Symphony Cloud", "GoFrontrowLive"
   ],

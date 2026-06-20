@@ -128,10 +128,16 @@ export function Projects() {
   return (
     <section id="projects" className="py-16 md:py-24 bg-transparent relative perspective-1000">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Featured Projects</h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
           {projects.map((project, idx) => (
@@ -154,7 +160,7 @@ export function Projects() {
                     transform: "translateZ(50px)",
                     transformStyle: "preserve-3d",
                   }}
-                  className="bg-white rounded-3xl overflow-hidden border border-border shadow-lg group h-full flex flex-col relative"
+                  className="bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 rounded-3xl overflow-hidden border border-border shadow-lg group h-full flex flex-col relative"
                 >
                   {/* Decorative background accent */}
                   <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-700 ease-out" />
@@ -222,3 +228,7 @@ export function Projects() {
     </section>
   );
 }
+
+
+
+

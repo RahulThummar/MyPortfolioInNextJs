@@ -44,10 +44,16 @@ export function Skills() {
   return (
     <section id="skills" className="py-16 md:py-24 bg-transparent relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Technical Skills</h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-        </div>
+        </motion.div>
 
         <div ref={ref} className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
           {skillCategories.map((category, idx) => (
@@ -56,7 +62,7 @@ export function Skills() {
               variants={container}
               initial="hidden"
               animate={isInView ? "show" : "hidden"}
-              className="bg-white p-8 rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-8 rounded-3xl border border-border shadow-sm hover:shadow-md transition-shadow"
             >
               <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center">
                 <span className="w-2 h-6 bg-primary rounded-full mr-3"></span>
@@ -80,3 +86,7 @@ export function Skills() {
     </section>
   );
 }
+
+
+
+

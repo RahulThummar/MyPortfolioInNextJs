@@ -23,7 +23,7 @@ export function Hero() {
   }, [titles.length]);
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-section">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-transparent">
       {/* Background Elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px]" />
@@ -166,7 +166,11 @@ export function Hero() {
                 />
 
                 {/* Image Container */}
-                <div className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-[8px] border-white bg-white group">
+                <motion.div
+                  className="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-[8px] border-white bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 group"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
                   <Image
                     src="/images/mpic.jpg"
                     alt="Rahul Thummar"
@@ -174,7 +178,7 @@ export function Hero() {
                     className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     priority
                   />
-                </div>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>
@@ -183,3 +187,7 @@ export function Hero() {
     </section>
   );
 }
+
+
+
+

@@ -16,10 +16,16 @@ export function Experience() {
   return (
     <section id="experience" className="py-16 md:py-24 bg-transparent relative">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Experience</h2>
           <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-        </div>
+        </motion.div>
 
         <div className="max-w-3xl mx-auto relative" ref={containerRef}>
           {/* Timeline Line */}
@@ -67,7 +73,7 @@ export function Experience() {
                     duration: 0.8,
                     delay: idx * 0.2
                   }}
-                  className="bg-white border border-border p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow group-hover:border-primary/30 relative"
+                  className="bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 border border-border p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow group-hover:border-primary/30 relative"
                 >
                   <div className="absolute top-6 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-border right-full md:hidden" />
                   <div className="hidden md:block absolute top-6 w-0 h-0 border-y-8 border-y-transparent group-odd:border-l-8 group-odd:border-l-border group-odd:left-full group-even:border-r-8 group-even:border-r-border group-even:right-full" />
@@ -103,3 +109,7 @@ export function Experience() {
     </section>
   );
 }
+
+
+
+
