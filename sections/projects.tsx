@@ -15,7 +15,7 @@ const projects = [
     github: "#",
   },
   {
-    title: "GoFrontrowLIve",
+    title: "GoFrontrowLive",
     description: "Real-time language translation platform featuring an advanced interactive whiteboard for seamless global communication.",
     tech: ["Vue.js", "Socket.io", "Fabric.js"],
     image: "/placeholder.svg",
@@ -126,7 +126,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 bg-section relative perspective-1000">
+    <section id="projects" className="py-16 md:py-24 bg-transparent relative perspective-1000">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Featured Projects</h2>

@@ -126,7 +126,7 @@ export function Hero() {
               <motion.div
                 animate={{ y: [-15, 15, -15] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-72 h-72 md:w-96 md:h-96 z-30"
+                className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-96 md:h-96 z-30 mt-8 lg:mt-0"
               >
                 {/* Decorative spinning ring */}
                 <motion.div

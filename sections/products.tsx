@@ -6,8 +6,7 @@ import Image from "next/image";
 
 export function Products() {
   return (
-    <section id="products" className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+    <section id="products" className="py-16 md:py-24 bg-transparent relative overflow-hidden">
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">

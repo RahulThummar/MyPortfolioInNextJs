@@ -9,7 +9,7 @@ const technologies = [
 
 export function Marquee() {
   return (
-    <section className="py-12 bg-white border-y border-border overflow-hidden flex items-center">
+    <section className="py-8 md:py-12 bg-transparent overflow-hidden flex items-center">
       <div className="flex w-[200%] md:w-[150%] lg:w-full max-w-[100vw]">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
