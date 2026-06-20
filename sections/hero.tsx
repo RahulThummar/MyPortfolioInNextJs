@@ -65,20 +65,22 @@ export function Hero() {
               <h1 className="text-5xl md:text-7xl font-extrabold text-text-primary tracking-tight mb-4 drop-shadow-sm">
                 Rahul Thummar
               </h1>
-              <div className="h-12 flex items-center">
-                <span className="text-2xl md:text-3xl font-semibold text-text-secondary mr-2">
+              <div className="flex flex-col sm:flex-row sm:items-center min-h-[4rem] sm:min-h-[3rem] mt-2 sm:mt-0">
+                <span className="text-xl sm:text-2xl md:text-3xl font-semibold text-text-secondary mr-2">
                   A passionate
                 </span>
-                <motion.span
-                  key={currentTitleIndex}
-                  initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
-                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-                  exit={{ opacity: 0, scale: 0.5, rotateX: 90 }}
-                  transition={{ duration: 0.6, type: "spring", bounce: 0.6 }}
-                  className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent drop-shadow-sm"
-                >
-                  {titles[currentTitleIndex]}
-                </motion.span>
+                <div className="relative h-10 sm:h-12 flex items-center mt-1 sm:mt-0">
+                  <motion.span
+                    key={currentTitleIndex}
+                    initial={{ opacity: 0, scale: 0.5, rotateX: -90 }}
+                    animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                    exit={{ opacity: 0, scale: 0.5, rotateX: 90 }}
+                    transition={{ duration: 0.6, type: "spring", bounce: 0.6 }}
+                    className="absolute left-0 text-xl sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent drop-shadow-sm whitespace-nowrap"
+                  >
+                    {titles[currentTitleIndex]}
+                  </motion.span>
+                </div>
               </div>
             </motion.div>
 
@@ -126,20 +128,20 @@ export function Hero() {
               <motion.div
                 animate={{ y: [-15, 15, -15] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-96 md:h-96 z-30 mt-8 lg:mt-0"
+                className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 z-30 mt-12 lg:mt-0"
               >
                 {/* Decorative spinning ring */}
                 <motion.div
                   animate={{ rotate: 360, scale: [1, 1.05, 1] }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="absolute -inset-4 border-2 border-dashed border-primary/30 rounded-full pointer-events-none"
+                  className="absolute -inset-3 sm:-inset-4 border-2 border-dashed border-primary/30 rounded-full pointer-events-none"
                 />
 
                 {/* Decorative solid ring */}
                 <motion.div
                   animate={{ scale: [1.05, 1, 1.05] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -inset-8 border border-primary/10 rounded-full pointer-events-none"
+                  className="absolute -inset-6 sm:-inset-8 border border-primary/10 rounded-full pointer-events-none hidden sm:block"
                 />
 
                 {/* Floating Particle 1 */}
