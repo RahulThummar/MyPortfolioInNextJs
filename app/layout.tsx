@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { CustomCursor } from "@/components/cursor";
 
 import { GlobalBackground } from "@/components/global-background";
 
@@ -77,9 +76,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col text-text-primary bg-transparent overflow-x-hidden cursor-none md:cursor-auto">
+      <body className="min-h-full flex flex-col text-text-primary bg-transparent overflow-x-hidden">
         <GlobalBackground />
-        <CustomCursor />
         <SmoothScroll>
           {children}
         </SmoothScroll>
