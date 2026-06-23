@@ -1,18 +1,9 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
+import { GraduationCap, Calendar, MapPin, Award } from "lucide-react";
 
 export function Education() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
-  });
-
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
   const educationList = [
     {
       institution: "Jain University",
@@ -33,65 +24,89 @@ export function Education() {
       period: "2018 - 2019",
       location: "Surat",
       degree: "12th HSC",
-      score: "Percentage : 73.71",
+      score: "Percentage: 73.71%",
     },
   ];
 
   return (
-    <section id="education" className="py-16 md:py-24 bg-transparent relative">
-      <div className="container mx-auto px-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">Education</h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-        </motion.div>
+    <section id="education" className="py-20 md:py-32 relative overflow-hidden">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute bottom-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-accent/5 blur-[120px]" />
+      </div>
 
-        <div className="max-w-3xl mx-auto relative" ref={containerRef}>
-          {/* Timeline Line */}
-          <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-1 bg-border rounded-full -translate-x-1/2 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row-reverse gap-16 lg:gap-24">
+          
+          {/* Right Sticky Header (reversed for alternating layout) */}
+          <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
             <motion.div
-              style={{ height: lineHeight }}
-              className="w-full bg-primary origin-top"
-            />
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center justify-center p-3 bg-accent/10 rounded-2xl mb-6 text-accent">
+                <GraduationCap className="w-8 h-8" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary mb-6 tracking-tight">
+                Academic <br className="hidden lg:block"/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-secondary">
+                  Background
+                </span>
+              </h2>
+              <p className="text-text-secondary text-lg leading-relaxed">
+                The educational foundation that paved the way for my analytical thinking and software engineering principles.
+              </p>
+            </motion.div>
           </div>
 
-          {educationList.map((edu, idx) => (
-            <div key={idx} className="relative flex items-center justify-between md:justify-normal md:even:flex-row-reverse group w-full mb-12">
-              {/* Icon */}
-              <div className="flex items-center justify-center w-14 h-14 rounded-full border-4 border-white bg-primary text-white shadow-lg z-10 shrink-0 md:absolute md:left-1/2 md:-translate-x-1/2 group-hover:scale-110 transition-transform duration-300">
-                <GraduationCap className="w-6 h-6" />
-              </div>
+          {/* Left Content - Cards */}
+          <div className="lg:w-2/3 flex flex-col gap-8">
+            {educationList.map((edu, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -8, scale: 1.01 }}
+                className="group relative bg-white border border-border/50 rounded-3xl p-6 md:p-10 shadow-lg shadow-slate-200/40 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-500 overflow-hidden"
+              >
+                {/* Card Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-bl from-accent/0 via-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
+                    <div className="min-w-0">
+                      <h3 className="text-xl md:text-2xl font-bold text-text-primary mb-2 group-hover:text-accent transition-colors duration-300 break-words">
+                        {edu.degree}
+                      </h3>
+                      <div className="text-base md:text-lg font-semibold text-text-secondary mb-2">
+                        {edu.institution}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 text-sm font-medium text-text-secondary shrink-0">
+                      <div className="flex items-center gap-2 md:justify-end bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+                        <Calendar className="w-4 h-4 text-accent" />
+                        {edu.period}
+                      </div>
+                      <div className="flex items-center gap-2 md:justify-end bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+                        <MapPin className="w-4 h-4 text-accent" />
+                        {edu.location}
+                      </div>
+                    </div>
+                  </div>
 
-              {/* Content */}
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] ml-auto md:ml-0 md:px-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white/90 backdrop-blur-xl shadow-xl shadow-slate-200/50 border border-border p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow group-hover:border-primary/30 relative"
-                >
-                  <div className="absolute top-6 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-border right-full md:hidden" />
-                  <div className="hidden md:block absolute top-6 w-0 h-0 border-y-8 border-y-transparent group-odd:border-r-8 group-odd:border-r-border group-odd:right-full group-even:border-l-8 group-even:border-l-border group-even:left-full" />
-
-                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full mb-4">
-                    {edu.period}
-                  </span>
-                  <h3 className="text-xl font-bold text-text-primary mb-1">{edu.degree}</h3>
-                  <h4 className="text-sm font-medium text-text-secondary mb-3">{edu.institution}, {edu.location}</h4>
-
-                  <p className="text-sm text-text-secondary font-medium">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/5 rounded-xl border border-accent/10 text-accent font-semibold">
+                    <Award className="w-5 h-5" />
                     {edu.score}
-                  </p>
-                </motion.div>
-              </div>
-            </div>
-          ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
         </div>
       </div>
