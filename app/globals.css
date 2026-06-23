@@ -23,6 +23,40 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Premium Animated Global Background Grid */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: gridPan 30s linear infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Subtle Vignette to fade out the grid edges */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 20%, var(--background) 120%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gridPan {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-48px, -48px);
+  }
 }
 
 /* Lenis Recommended Styles */
