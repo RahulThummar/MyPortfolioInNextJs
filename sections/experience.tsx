@@ -8,6 +8,7 @@ export function Experience() {
     {
       role: "React Js Developer",
       company: "AppWorld Infotech",
+      url: "https://appworldinfotech.com/",
       period: "Oct 2023 - Present",
       location: "Surat, Gujarat, India · On-site",
       description: "Currently working as a Frontend Developer, where I’ve expanded my expertise in both React.js and Vue.js. Gained hands-on experience with Fabric.js for building interactive canvas-based applications, and continued to work with RESTful APIs, async operations, and advanced state management techniques. Also contributed to real-time features using Socket.io, focusing on building scalable and dynamic user interfaces.",
@@ -17,6 +18,7 @@ export function Experience() {
     {
       role: "React Js Developer",
       company: "Rentech Digital",
+      url: "https://rentechdigital.com/",
       period: "May 2022 - Sep 2023",
       location: "Surat, Gujarat, India · On-site",
       description: "Proficient in integrating RESTful APIs and handling async operations using Axios and Fetch. Skilled in advanced state management with Redux and Recoil, and experienced in optimizing React app performance through code splitting, lazy loading, and memoization.",
@@ -94,8 +96,17 @@ export function Experience() {
                         )}
                       </div>
                       <div className="text-lg md:text-xl font-semibold text-primary mb-2 flex items-center gap-2">
-                        {exp.company}
-                        <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 opacity-0 -translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                        {exp.url ? (
+                          <a href={exp.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                            {exp.company}
+                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 opacity-0 -translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                          </a>
+                        ) : (
+                          <>
+                            {exp.company}
+                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 opacity-0 -translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                          </>
+                        )}
                       </div>
                     </div>
                     
