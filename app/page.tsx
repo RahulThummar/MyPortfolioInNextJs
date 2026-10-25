@@ -7,7 +7,6 @@ import { Projects } from "@/sections/projects";
 import { Products } from "@/sections/products";
 import { Achievements } from "@/sections/achievements";
 import { Others } from "@/sections/others";
-import { Marquee } from "@/sections/marquee";
 import { Contact } from "@/sections/contact";
 import { Footer } from "@/sections/footer";
 
@@ -32,7 +31,7 @@ export default function Home() {
       "@type": "Organization",
       "name": "AppWorld Infotech"
     },
-    "knowsAbout": ["React.js", "Next.js", "Vue.js", "TypeScript", "JavaScript", "WebRTC", "Socket.io", "Frontend Architecture"]
+    "knowsAbout": ["React.js", "Next.js", "Vue.js", "TypeScript", "JavaScript", "Cloud Agentic AI", "Socket.io", "Fabric.js", "Frontend Architecture"]
   };
 
   return (
@@ -52,7 +51,6 @@ export default function Home() {
         <Products />
         <Achievements />
         <Others />
-        <Marquee />
         <Contact />
         <Footer />
       </main>
