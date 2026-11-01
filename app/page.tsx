@@ -41,7 +41,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="flex min-h-screen flex-col w-full overflow-hidden">
+      <main className="flex min-h-screen flex-col w-full overflow-x-clip">
         <Hero />
         <About />
         <Skills />
