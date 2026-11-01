@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rahulthummar.com"), // Ensure to update if domain changes
   title: {
-    default: "Rahul Thummar | Senior React.js & Next.js Developer",
+    default: "Rahul Thummar | React.js & Next.js Developer",
     template: "%s | Rahul Thummar"
   },
   description: "Experienced Frontend Engineer specializing in React.js, Next.js, Vue.js, and TypeScript. Building high-performance, scalable web applications, real-time collaboration platforms, and AI-assisted developer tools in Surat, India.",

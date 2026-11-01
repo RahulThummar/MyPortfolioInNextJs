@@ -15,7 +15,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Rahul Thummar",
-    "jobTitle": "Senior React.js & Next.js Developer",
+    "jobTitle": "React.js & Next.js Developer",
     "url": "https://rahulthummar.com",
     "image": "https://rahulthummar.com/images/mpic.jpg",
     "sameAs": [
