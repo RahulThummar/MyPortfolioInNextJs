@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ExternalLink, FolderGit2 } from "lucide-react";
 
 interface ProjectItem {
@@ -241,7 +242,13 @@ export function Projects() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-12 sm:mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
             <FolderGit2 className="w-3.5 h-3.5" />
             <span>Featured Work</span>
@@ -258,7 +265,7 @@ export function Projects() {
             A selection of my best technical work, highlighting my expertise in full-stack development,
             real-time systems, and complex UI engineering.
           </p>
-        </div>
+        </motion.div>
 
         {/* Sticky Stacking Cards Container */}
         <div ref={cardsContainerRef} className="relative pb-16 sm:pb-24">

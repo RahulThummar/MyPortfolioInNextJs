@@ -257,7 +257,13 @@ export function Products() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14 md:mb-20"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider mb-4">
             <Box className="w-3.5 h-3.5" />
             <span>Developer Products</span>
@@ -273,7 +279,7 @@ export function Products() {
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
             Explore my flagship platforms and utility tools designed to provide high-performance solutions for the global developer community.
           </p>
-        </div>
+        </motion.div>
 
         {/* Product Showcase Cards */}
         <div className="flex flex-col gap-10 max-w-6xl mx-auto">

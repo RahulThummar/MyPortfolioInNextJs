@@ -9,6 +9,7 @@ import { Achievements } from "@/sections/achievements";
 import { Others } from "@/sections/others";
 import { Contact } from "@/sections/contact";
 import { Footer } from "@/sections/footer";
+import { SectionReveal } from "@/components/section-reveal";
 
 export default function Home() {
   const jsonLd = {
@@ -43,16 +44,46 @@ export default function Home() {
       />
       <main className="flex min-h-screen flex-col w-full overflow-x-clip">
         <Hero />
-        <About />
-        <Projects />
-        <Products />
-        <Experience />
-        <Skills />
-        <Education />
-        <Achievements />
-        <Others />
-        <Contact />
-        <Footer />
+
+        <SectionReveal>
+          <About />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Projects />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Products />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Experience />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Skills />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Education />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Achievements />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Others />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Contact />
+        </SectionReveal>
+
+        <SectionReveal>
+          <Footer />
+        </SectionReveal>
       </main>
     </>
   );

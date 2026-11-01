@@ -205,7 +205,13 @@ export function Experience() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14 md:mb-20"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
             <Briefcase className="w-3.5 h-3.5" />
             <span>Career History</span>
@@ -229,7 +235,7 @@ export function Experience() {
             <span className="text-slate-300">•</span>
             <span>Surat, Gujarat, India</span>
           </div>
-        </div>
+        </motion.div>
 
         {/* Ultra-Sleek Interactive Accordion List (Linear / Vercel Style) */}
         <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5">

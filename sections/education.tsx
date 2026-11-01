@@ -86,7 +86,13 @@ export function Education() {
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 md:mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 35 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-14 md:mb-20"
+        >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider mb-4">
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Academic Pathway</span>
@@ -102,7 +108,7 @@ export function Education() {
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
             The foundational academic training and computer application degrees that shaped my analytical mindset and software engineering principles.
           </p>
-        </div>
+        </motion.div>
 
         {/* 3-Card Clean & Modern Equal-Height Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 max-w-6xl mx-auto items-stretch">

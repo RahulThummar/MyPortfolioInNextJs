@@ -254,7 +254,11 @@ export function Skills() {
           </div>
 
           {/* Right Content - Multi-Row Staggered Marquee with smooth Alpha Mask Fade */}
-          <div 
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.7 }}
             className="lg:w-2/3 min-w-0 relative overflow-hidden py-2 space-y-4"
             style={{
               maskImage: "linear-gradient(to right, transparent 0%, black 60px, black calc(100% - 60px), transparent 100%)",
@@ -301,7 +305,7 @@ export function Skills() {
               </motion.div>
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
       </div>
