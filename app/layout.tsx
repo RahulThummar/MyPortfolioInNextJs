@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   keywords: [
     "Rahul Thummar", "React.js Developer", "Next.js Developer", "Frontend Engineer",
     "Web Developer Surat", "Vue.js Expert", "TypeScript Developer", "JavaScript",
-    "Cloud Agentic AI", "Agentic AI", "Socket.io", "Fabric.js", "Tailwind CSS", "Framer Motion", "React Developer India",
+    "Socket.io", "Fabric.js", "Tailwind CSS", "Framer Motion", "React Developer India",
     "MERN Stack", "Frontend Architecture", "Real-time Applications", "CodeUtils",
     "AutoIncrementLog", "JoinMyClass", "Symphony Cloud", "GoFrontrowLive"
   ],

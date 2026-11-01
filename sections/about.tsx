@@ -6,7 +6,7 @@ import { User, Terminal } from "lucide-react";
 
 export function About() {
   const stats = [
-    { value: "3.5+", label: "Years Experience" },
+    { value: "4+", label: "Years Experience" },
     { value: "10+", label: "Projects Completed" },
   ];
 

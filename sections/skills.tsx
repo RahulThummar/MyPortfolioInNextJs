@@ -154,10 +154,10 @@ const JSLogo = () => (
   </svg>
 );
 
-// Marquee Row 1: Frontend & Agentic AI Stack
+// Marquee Row 1: Frontend & Fullstack Stack
 const row1Techs: TechItem[] = [
   { name: "ReactJS", category: "Frontend Framework", logo: <ReactLogo /> },
-  { name: "Cloud Agentic AI", category: "Autonomous LLMs", logo: <AgenticAILogo /> },
+  { name: "WebRTC", category: "Real-Time Comms", logo: <SocketLogo /> },
   { name: "Next.js 16", category: "SSR & Fullstack", logo: <NextLogo /> },
   { name: "Claude", category: "Anthropic AI", logo: <ClaudeLogo /> },
   { name: "TypeScript", category: "Architecture", logo: <TSLogo /> },
@@ -167,10 +167,10 @@ const row1Techs: TechItem[] = [
   { name: "Tailwind CSS", category: "UI Styling", logo: <TailwindLogo /> },
 ];
 
-// Marquee Row 2: Realtime, State & Cloud AI
+// Marquee Row 2: Realtime, State & Performance
 const row2Techs: TechItem[] = [
   { name: "Socket.io", category: "Real-Time Web", logo: <SocketLogo /> },
-  { name: "Cloud Agentic AI", category: "Agent Workflows", logo: <AgenticAILogo /> },
+  { name: "Recoil", category: "State Management", logo: <ReduxLogo /> },
   { name: "Fabric.js", category: "Interactive Canvas", logo: <FabricLogo /> },
   { name: "Claude", category: "Reasoning & Code", logo: <ClaudeLogo /> },
   { name: "GitLab", category: "DevOps & CI/CD", logo: <GitLabLogo /> },
@@ -179,12 +179,12 @@ const row2Techs: TechItem[] = [
   { name: "JavaScript", category: "Modern ES6+", logo: <JSLogo /> },
 ];
 
-// Marquee Row 3: Tooling, AI Agents & Deployment
+// Marquee Row 3: Tooling & Deployment
 const row3Techs: TechItem[] = [
   { name: "VS Code", category: "Code Editor", logo: <VSCodeLogo /> },
-  { name: "Cloud Agentic AI", category: "Multi-Agent Systems", logo: <AgenticAILogo /> },
+  { name: "REST APIs", category: "API Integration", logo: <PostmanLogo /> },
   { name: "GitHub", category: "Collaboration", logo: <GitHubLogo /> },
-  { name: "Claude", category: "Agentic Engineering", logo: <ClaudeLogo /> },
+  { name: "Claude", category: "AI Engineering", logo: <ClaudeLogo /> },
   { name: "Postman", category: "API Testing", logo: <PostmanLogo /> },
   { name: "Vercel", category: "Edge Cloud", logo: <VercelLogo /> },
   { name: "Cursor", category: "AI Pair Engineer", logo: <CursorLogo /> },
@@ -248,7 +248,7 @@ export function Skills() {
                 </span>
               </h2>
               <p className="text-text-secondary text-lg leading-relaxed">
-                A battle-tested tech stack refined across production web applications, Cloud Agentic AI workflows, interactive canvas platforms, and modern frontend architecture.
+                A battle-tested tech stack refined across production web applications, real-time collaboration platforms, interactive canvas platforms, and modern frontend architecture.
               </p>
             </motion.div>
           </div>

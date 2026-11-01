@@ -31,7 +31,7 @@ export default function Home() {
       "@type": "Organization",
       "name": "AppWorld Infotech"
     },
-    "knowsAbout": ["React.js", "Next.js", "Vue.js", "TypeScript", "JavaScript", "Cloud Agentic AI", "Socket.io", "Fabric.js", "Frontend Architecture"]
+    "knowsAbout": ["React.js", "Next.js", "Vue.js", "TypeScript", "JavaScript", "Socket.io", "Fabric.js", "Frontend Architecture"]
   };
 
   return (

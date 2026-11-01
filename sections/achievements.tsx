@@ -6,7 +6,7 @@ import { GraduationCap, Briefcase, Code, Terminal, Heart } from "lucide-react";
 
 const achievements = [
   { icon: GraduationCap, title: "MCA Graduate", value: "2023" },
-  { icon: Briefcase, title: "Years Experience", value: "3.5+" },
+  { icon: Briefcase, title: "Years Experience", value: "4+" },
   { icon: Code, title: "Production Projects", value: "10+" },
   { icon: Terminal, title: "Developer Tool Creator", value: "1" },
   { icon: Heart, title: "Open Source Enthusiast", value: "100%" },
