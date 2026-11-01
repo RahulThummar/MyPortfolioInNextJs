@@ -44,11 +44,11 @@ export default function Home() {
       <main className="flex min-h-screen flex-col w-full overflow-x-clip">
         <Hero />
         <About />
-        <Skills />
-        <Experience />
-        <Education />
         <Projects />
         <Products />
+        <Experience />
+        <Skills />
+        <Education />
         <Achievements />
         <Others />
         <Contact />
