@@ -242,11 +242,12 @@ export function About() {
 
             {/* Story */}
             <div className="lg:col-span-8">
-              <SectionHeading
-                title="About Me"
-                description="A passionate web developer dedicated to building responsive, user-friendly, and modern web applications."
-              />
-
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                About{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                  Me
+                </span>
+              </h2>
               <div className="mt-14">
                 <ScrubbedBio text={BIO} />
               </div>

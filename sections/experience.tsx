@@ -246,11 +246,10 @@ export function Experience() {
             return (
               <div
                 key={exp.id}
-                className={`rounded-[24px] sm:rounded-[28px] transition-all duration-300 overflow-hidden border ${
-                  isExpanded
+                className={`rounded-[24px] sm:rounded-[28px] transition-all duration-300 overflow-hidden border ${isExpanded
                     ? "bg-white/95 border-primary/40 shadow-xl shadow-primary/10 ring-2 ring-primary/10"
                     : "bg-white/80 hover:bg-white border-slate-200/90 shadow-sm hover:shadow-md hover:border-slate-300"
-                }`}
+                  }`}
               >
                 {/* Clickable Summary Row Header */}
                 <button
@@ -308,9 +307,8 @@ export function Experience() {
                     </div>
 
                     <div
-                      className={`flex h-8 w-8 items-center justify-center rounded-full border border-slate-200/80 bg-slate-50 text-slate-500 transition-transform duration-300 ${
-                        isExpanded ? "rotate-180 bg-primary/10 text-primary border-primary/20" : ""
-                      }`}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border border-slate-200/80 bg-slate-50 text-slate-500 transition-transform duration-300 ${isExpanded ? "rotate-180 bg-primary/10 text-primary border-primary/20" : ""
+                        }`}
                     >
                       <ChevronDown className="w-4 h-4" />
                     </div>
