@@ -1,169 +1,253 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { PointerEvent as RPointerEvent, ReactNode } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowRight, Send } from "lucide-react";
 
-export function Hero() {
-  const titles = [
-    "React.js Developer",
-    "Next.js Developer",
-    "Frontend Engineer",
-    "MCA Graduate",
-    "Open Source Builder",
-  ];
-  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
+/* ---------- Magnetic wrapper (was ./ui/magnetic) ---------- */
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [titles.length]);
+function Magnetic({ children, strength = 0.3 }: { children: ReactNode; strength?: number }) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 220, damping: 16, mass: 0.2 });
+  const sy = useSpring(y, { stiffness: 220, damping: 16, mass: 0.2 });
+
+  function onMove(e: RPointerEvent<HTMLDivElement>) {
+    if (e.pointerType !== "mouse" || !boxRef.current) return;
+    const r = boxRef.current.getBoundingClientRect();
+    x.set((e.clientX - (r.left + r.width / 2)) * strength);
+    y.set((e.clientY - (r.top + r.height / 2)) * strength);
+  }
+
+  function reset() {
+    x.set(0);
+    y.set(0);
+  }
 
   return (
-    <section className="relative w-full h-screen h-[100dvh] flex items-center justify-center overflow-hidden bg-slate-950 select-none">
-      {/* Background Video Layer - AppWorld Infotech Style */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <motion.div
+      ref={boxRef}
+      onPointerMove={onMove}
+      onPointerLeave={reset}
+      style={{ x: sx, y: sy }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+const titles = [
+  "React.js Developer",
+  "Next.js Developer",
+  "Frontend Engineer",
+  "MCA Graduate",
+  "Open Source Builder",
+];
+
+const NAME = ["Rahul", "Thummar"];
+const ease = [0.22, 1, 0.36, 1] as const;
+
+/* ---------- Word reveal: same mask-and-rise effect as the name ---------- */
+
+function RevealWords({
+  text,
+  delay = 0,
+  step = 0.03,
+  className = "",
+}: {
+  text: string;
+  delay?: number;
+  step?: number;
+  className?: string;
+}) {
+  return (
+    <p aria-label={text} className={className}>
+      {text.split(" ").map((word, i) => (
+        <span
+          key={i}
+          aria-hidden
+          // extra bottom padding + negative margin keeps g, p, y from being clipped by the mask
+          className="mr-[0.25em] -mb-[0.25em] inline-block overflow-hidden pb-[0.25em] align-bottom"
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.7, ease, delay: delay + i * step }}
+          >
+            {word}
+          </motion.span>
+        </span>
+      ))}
+    </p>
+  );
+}
+
+
+export function Hero() {
+  const [index, setIndex] = useState(0);
+  const ref = useRef<HTMLElement>(null);
+
+  // The video drifts slower than the page and the copy fades as you leave.
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  useEffect(() => {
+    const t = setInterval(() => setIndex((p) => (p + 1) % titles.length), 2400);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section
+      ref={ref}
+      className="relative flex h-[100dvh] min-h-[600px] w-full select-none items-center overflow-hidden bg-slate-950"
+    >
+      {/* Background video */}
+      <motion.div
+        style={{ y: videoY }}
+        className="pointer-events-none absolute inset-x-0 -inset-y-[8%]"
+      >
         <video
           autoPlay
           loop
           muted
           playsInline
           preload="auto"
-          className="w-full h-full object-cover object-center scale-105 opacity-85"
+          className="h-full w-full object-cover object-center opacity-85"
         >
           <source src="/video/Hero.mp4" type="video/mp4" />
         </video>
+      </motion.div>
 
-        {/* Cinematic Multi-Layer Dark Gradient Overlay for Maximum Legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/50" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-slate-950/20 to-slate-950/70" />
+      {/* Legibility overlays */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/40" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/50" />
+      <div className="pointer-events-none absolute left-10 top-1/4 h-96 w-96 rounded-full bg-primary/20 blur-[140px]" />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-16"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.35) 80%, #FFFFFF 100%)",
+        }}
+      />
 
-        {/* Ambient Glowing Color Blobs for Tech Aesthetics */}
-        <div className="absolute top-1/4 left-10 w-96 h-96 bg-primary/20 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-accent/20 rounded-full blur-[140px] pointer-events-none" />
-
-        {/* Smooth Subtle Bottom Transition */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-12 md:h-16 pointer-events-none z-[3]"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.35) 80%, #FFFFFF 100%)",
-          }}
-        />
-      </div>
-
-      {/* Main Hero Content - Perfectly Centered in Viewport */}
-      <div className="container mx-auto px-6 sm:px-10 lg:px-16 relative z-10 w-full">
-        <div className="max-w-3xl lg:max-w-4xl">
-          <motion.div
-            className="space-y-6 sm:space-y-7"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, x: -60 },
-              visible: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                  type: "spring",
-                  bounce: 0.35,
-                  duration: 0.8,
-                  staggerChildren: 0.15,
-                  delayChildren: 0.1,
-                },
-              },
-            }}
+      {/* Content */}
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="container relative z-10 mx-auto px-6 sm:px-10 lg:px-16"
+      >
+        <div className="max-w-4xl">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease, delay: 0.1 }}
+            className="mb-3 text-lg font-medium text-cyan-300 sm:text-xl"
           >
-            {/* Headline and Rotating Title */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { type: "spring", stiffness: 280, damping: 22 },
-                },
-              }}
-            >
-              <h2 className="text-base sm:text-lg md:text-xl font-medium text-cyan-400 mb-2 tracking-wider uppercase flex items-center gap-2 drop-shadow">
-                Hello, I'm <span className="text-xl sm:text-2xl wave">👋</span>
-              </h2>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight mb-3 sm:mb-4 drop-shadow-md">
-                Rahul Thummar
-              </h1>
+            Hello, I&apos;m <span className="wave inline-block">👋</span>
+          </motion.p>
 
-              <div className="flex flex-col sm:flex-row sm:items-center min-h-[3rem] sm:min-h-[2.5rem]">
-                <span className="text-lg sm:text-2xl md:text-3xl font-semibold text-slate-300 mr-2">
-                  A passionate
-                </span>
-                <div className="relative h-8 sm:h-10 flex items-center">
-                  <motion.span
-                    key={currentTitleIndex}
-                    initial={{ opacity: 0, scale: 0.8, y: 15 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: -15 }}
-                    transition={{ duration: 0.45, type: "spring", bounce: 0.4 }}
-                    className="absolute left-0 text-lg sm:text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-sky-300 drop-shadow-[0_0_20px_rgba(56,189,248,0.5)] whitespace-nowrap"
-                  >
-                    {titles[currentTitleIndex]}
-                  </motion.span>
-                </div>
-              </div>
-            </motion.div>
+          {/* Name: each letter rises out of its own mask */}
+          <h1
+            aria-label="Rahul Thummar"
+            className="text-5xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-7xl lg:text-8xl"
+          >
+            {NAME.map((word, w) => (
+              <span key={word} aria-hidden className="mr-[0.25em] inline-block whitespace-nowrap">
+                {word.split("").map((ch, c) => (
+                  <span key={c} className="inline-block overflow-hidden pb-[0.06em] align-bottom">
+                    <motion.span
+                      className="inline-block"
+                      initial={{ y: "110%" }}
+                      animate={{ y: 0 }}
+                      transition={{ duration: 0.8, ease, delay: 0.25 + (w * 6 + c) * 0.045 }}
+                    >
+                      {ch}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </h1>
 
-            {/* Bio Description */}
-            <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 15 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-              }}
-              className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed drop-shadow"
-            >
-              I architect and develop high-performance, scalable web platforms.
-              Specializing in the React & Next.js ecosystem, real-time collaboration engines,
-              interactive canvas with Fabric.js, and modern frontend architecture.
-            </motion.p>
+          {/* Rotating role */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="mt-4 flex flex-wrap items-baseline gap-x-3 text-xl font-semibold text-slate-300 sm:text-3xl"
+          >
+            <span>A passionate</span>
+            <span className="relative inline-flex h-[1.35em] overflow-hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={index}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.38, ease }}
+                  className="block whitespace-nowrap font-bold text-cyan-300"
+                >
+                  {titles[index]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+          </motion.div>
 
-            {/* Action Buttons */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 15 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-              }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
+          <RevealWords
+            delay={1.0}
+            className="mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg md:text-xl"
+            text="I architect and develop high-performance, scalable web platforms. Specializing in the React & Next.js ecosystem, real-time collaboration engines, interactive canvas with Fabric.js, and modern frontend architecture."
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 1.9 }}
+            className="mt-8 flex flex-wrap items-center gap-4"
+          >
+            <Magnetic>
               <a
                 href="#projects"
-                className="group relative inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-bold text-white bg-primary rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-primary/40 border border-primary/30"
+                className="group inline-flex items-center rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-white shadow-xl shadow-primary/40 transition-colors hover:bg-primary/90 sm:text-base"
               >
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                <span className="relative z-10 flex items-center">
-                  View Projects
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
+                View Projects
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
+            </Magnetic>
 
+            <Magnetic>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 text-sm sm:text-base font-semibold text-white/90 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-black/20"
+                className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white/90 backdrop-blur-xl transition-colors hover:bg-white/20 sm:text-base"
               >
-                <Send className="mr-2 w-4 h-4 text-cyan-400" />
+                <Send className="mr-2 h-4 w-4 text-cyan-300" />
                 Get in Touch
               </a>
-            </motion.div>
+            </Magnetic>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Scroll cue */}
+      <div aria-hidden className="absolute bottom-10 left-6 z-10 hidden h-12 w-px bg-white/20 sm:left-10 sm:block lg:left-16">
+        <motion.span
+          animate={{ y: [0, 40, 0] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-[2px] top-0 h-1.5 w-1.5 rounded-full bg-cyan-300"
+        />
       </div>
     </section>
   );
 }
-
-
-
-
-
-
-
