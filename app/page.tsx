@@ -17,8 +17,8 @@ export default function Home() {
     "@type": "Person",
     "name": "Rahul Thummar",
     "jobTitle": "React.js & Next.js Developer",
-    "url": "https://rahulthummar.com",
-    "image": "https://rahulthummar.com/images/mpic.jpg",
+    "url": "https://rthummar.vercel.app",
+    "image": "https://rthummar.vercel.app/images/mpic.jpg",
     "sameAs": [
       "https://www.linkedin.com/in/rahul-thummar/",
       "https://twitter.com/Rahulthummar327",

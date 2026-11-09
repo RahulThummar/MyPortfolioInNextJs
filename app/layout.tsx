@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rahulthummar.com"), // Ensure to update if domain changes
+  metadataBase: new URL("https://rthummar.vercel.app"), // Ensure to update if domain changes
   title: {
     default: "Rahul Thummar | React.js & Next.js Developer",
     template: "%s | Rahul Thummar"
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "MERN Stack", "Frontend Architecture", "Real-time Applications", "CodeUtils",
     "AutoIncrementLog", "JoinMyClass", "Symphony Cloud", "GoFrontrowLive"
   ],
-  authors: [{ name: "Rahul Thummar", url: "https://rahulthummar.com" }],
+  authors: [{ name: "Rahul Thummar", url: "https://rthummar.vercel.app" }],
   creator: "Rahul Thummar",
   publisher: "Rahul Thummar",
   formatDetection: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rahul Thummar | React.js & Next.js Expert",
     description: "Portfolio of Rahul Thummar, a Senior Frontend Engineer building high-performance scalable web applications with modern technologies.",
-    url: "https://rahulthummar.com",
+    url: "https://rthummar.vercel.app",
     siteName: "Rahul Thummar Portfolio",
     locale: "en_US",
     type: "profile",
