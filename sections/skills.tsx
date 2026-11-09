@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Zap, Sparkles, Layers, Cpu, ShieldCheck, Bot } from "lucide-react";
+import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 interface TechItem {
   name: string;
@@ -191,124 +191,154 @@ const row3Techs: TechItem[] = [
   { name: "Next.js 16", category: "React Server Comps", logo: <NextLogo /> },
 ];
 
-// Individual Marquee Card component matching AppWorld Infotech style
+/* ---------- Section heading (title slides up from a mask, hairline draws in) ---------- */
+
+const ease = [0.22, 1, 0.36, 1] as const;
+const once = { once: true, margin: "-80px" } as const;
+
+function SectionHeading({
+  title,
+  accent,
+  description,
+}: {
+  title: string;
+  accent?: string; // last word, shown with the blue-to-secondary gradient
+  description?: string;
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <header className="mx-auto max-w-3xl text-center">
+      <h2 className="text-4xl font-extrabold leading-[1] tracking-tight text-text-primary md:text-6xl">
+        <span className="block overflow-hidden pb-2">
+          <motion.span
+            className="block"
+            initial={reduce ? false : { y: "105%" }}
+            whileInView={{ y: 0 }}
+            viewport={once}
+            transition={{ duration: 0.8, ease }}
+          >
+            {title}
+            {accent && (
+              <>
+                {" "}
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  {accent}
+                </span>
+              </>
+            )}
+          </motion.span>
+        </span>
+      </h2>
+
+      <motion.div
+        aria-hidden
+        className="mt-5 h-px w-full origin-center bg-border"
+        initial={reduce ? false : { scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={once}
+        transition={{ duration: 1, delay: 0.15, ease }}
+      />
+
+      {description && (
+        <motion.p
+          className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-text-secondary"
+          initial={reduce ? false : { opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={once}
+          transition={{ duration: 0.7, delay: 0.25, ease }}
+        >
+          {description}
+        </motion.p>
+      )}
+    </header>
+  );
+}
+
+/* ---------- Marquee row: CSS-driven, pauses on hover, stops for reduced motion ---------- */
+
+function MarqueeRow({
+  children,
+  duration = 40,
+  reverse = false,
+  gap = 14,
+}: {
+  children: ReactNode;
+  duration?: number;
+  reverse?: boolean;
+  gap?: number;
+}) {
+  const half = { gap, paddingRight: gap } as const;
+  const fade = "linear-gradient(to right, transparent, black 6%, black 94%, transparent)";
+
+  return (
+    <>
+      <style>{`
+        @keyframes mq-slide { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        .mq:hover .mq-track { animation-play-state: paused }
+        @media (prefers-reduced-motion: reduce) { .mq-track { animation: none !important } }
+      `}</style>
+      <div className="mq overflow-hidden" style={{ maskImage: fade, WebkitMaskImage: fade }}>
+        <div
+          className="mq-track flex w-max"
+          style={{ animation: `mq-slide ${duration}s linear infinite ${reverse ? "reverse" : "normal"}` }}
+        >
+          <div className="flex shrink-0 items-center" style={half}>
+            {children}
+          </div>
+          <div className="flex shrink-0 items-center" style={half} aria-hidden>
+            {children}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ---------- Tech card ---------- */
+
 function TechCard({ item }: { item: TechItem }) {
   return (
-    <div className="flex items-center gap-3.5 px-4.5 py-3 bg-white/95 backdrop-blur-md border border-border/80 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-200 min-w-[200px] select-none group">
-      <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-primary/5 transition-all">
+    <div className="group flex min-w-[210px] select-none items-center gap-3.5 rounded-2xl border border-border bg-white/90 px-4 py-3 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-slate-50 transition-transform duration-300 group-hover:scale-110">
         {item.logo}
       </div>
       <div className="min-w-0">
-        <div className="text-sm font-bold text-text-primary group-hover:text-primary transition-colors truncate">
-          {item.name}
-        </div>
-        <div className="text-xs font-medium text-text-secondary truncate">
-          {item.category}
-        </div>
+        <div className="truncate text-sm font-bold text-text-primary">{item.name}</div>
+        <div className="truncate text-xs font-medium text-text-secondary">{item.category}</div>
       </div>
     </div>
   );
 }
 
+/* ---------- Section ---------- */
+
 export function Skills() {
+  const rows = [
+    { items: row1Techs, duration: 60, reverse: false },
+    { items: row2Techs, duration: 68, reverse: true },
+    { items: row3Techs, duration: 64, reverse: false },
+  ];
+
   return (
-    <section id="skills" className="py-20 md:py-32 relative overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3], y: [0, 20, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[10%] -left-[10%] w-[45%] h-[45%] rounded-full bg-primary/5 blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3], x: [0, -20, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute bottom-[10%] -right-[10%] w-[45%] h-[45%] rounded-full bg-secondary/5 blur-[120px]" 
+    <section id="skills" className="relative overflow-hidden py-24 md:py-36">
+      <div className="container mx-auto px-6 sm:px-10 lg:px-16">
+        <SectionHeading
+          title="Technical"
+          accent="Skills"
+          description="A battle-tested tech stack refined across production web applications, real-time collaboration platforms, interactive canvas platforms, and modern frontend architecture."
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          
-          {/* Left Sticky Header */}
-          <div className="lg:w-1/3 lg:sticky lg:top-32 h-fit">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-2xl mb-6 text-primary">
-                <Cpu className="w-8 h-8" />
-              </div>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-text-primary mb-6 tracking-tight">
-                Technical <br className="hidden lg:block"/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                  Skills
-                </span>
-              </h2>
-              <p className="text-text-secondary text-lg leading-relaxed">
-                A battle-tested tech stack refined across production web applications, real-time collaboration platforms, interactive canvas platforms, and modern frontend architecture.
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Right Content - Multi-Row Staggered Marquee with smooth Alpha Mask Fade */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.7 }}
-            className="lg:w-2/3 min-w-0 relative overflow-hidden py-2 space-y-4"
-            style={{
-              maskImage: "linear-gradient(to right, transparent 0%, black 60px, black calc(100% - 60px), transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 60px, black calc(100% - 60px), transparent 100%)",
-            }}
-          >
-
-            {/* Row 1: Flowing Left to Right */}
-            <div className="flex w-max group/row">
-              <motion.div
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ ease: "linear", duration: 28, repeat: Infinity }}
-                className="flex gap-3.5 items-center pl-4 group-hover/row:[animation-play-state:paused]"
-              >
-                {[...row1Techs, ...row1Techs].map((tech, i) => (
-                  <TechCard key={`r1-${i}`} item={tech} />
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Row 2: Flowing Right to Left (Reverse) */}
-            <div className="flex w-max group/row">
-              <motion.div
-                animate={{ x: ["-50%", "0%"] }}
-                transition={{ ease: "linear", duration: 32, repeat: Infinity }}
-                className="flex gap-3.5 items-center pl-4 group-hover/row:[animation-play-state:paused]"
-              >
-                {[...row2Techs, ...row2Techs].map((tech, i) => (
-                  <TechCard key={`r2-${i}`} item={tech} />
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Row 3: Flowing Left to Right */}
-            <div className="flex w-max group/row">
-              <motion.div
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ ease: "linear", duration: 30, repeat: Infinity }}
-                className="flex gap-3.5 items-center pl-4 group-hover/row:[animation-play-state:paused]"
-              >
-                {[...row3Techs, ...row3Techs].map((tech, i) => (
-                  <TechCard key={`r3-${i}`} item={tech} />
-                ))}
-              </motion.div>
-            </div>
-
-          </motion.div>
-
-        </div>
+      {/* Rows stay inside the same side spacing as the Hero. Hover any row to pause it. */}
+      <div className="container mx-auto mt-16 space-y-4 px-6 sm:px-10 lg:px-16">
+        {rows.map((row, i) => (
+          <MarqueeRow key={i} duration={row.duration} reverse={row.reverse}>
+            {row.items.map((tech, j) => (
+              <TechCard key={`${i}-${j}`} item={tech} />
+            ))}
+          </MarqueeRow>
+        ))}
       </div>
     </section>
   );
-}
+} 
