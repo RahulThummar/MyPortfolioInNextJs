@@ -79,7 +79,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-text-primary bg-transparent overflow-x-clip">
         <GlobalBackground />
         <SmoothScroll>
+           <div className="relative z-10 min-h-screen">
           {children}
+           </div>
         </SmoothScroll>
       </body>
     </html>

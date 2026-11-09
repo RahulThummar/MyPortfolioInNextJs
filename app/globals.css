@@ -126,3 +126,58 @@ html.lenis body {
   transform-origin: 70% 70%;
   display: inline-block;
 }
+
+
+/* =========================================
+   DIGITAL UNIVERSE - LIGHT THEME
+========================================= */
+
+html {
+  background: #f8fbff;
+}
+
+body {
+  background: #f8fbff;
+  color: #101827;
+}
+
+/* Main digital universe background */
+.digital-universe {
+  background: #f8fbff;
+  isolation: isolate;
+}
+
+.digital-universe-base {
+  background:
+    radial-gradient(
+      ellipse at 15% 15%,
+      rgba(191, 219, 254, 0.32),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 85% 75%,
+      rgba(165, 243, 252, 0.25),
+      transparent 40%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fbff 0%,
+      #f1f7ff 50%,
+      #f8fcff 100%
+    );
+}
+
+.digital-universe-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 35%,
+    rgba(226, 240, 255, 0.18) 100%
+  );
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .digital-universe canvas {
+    animation: none !important;
+  }
+}
